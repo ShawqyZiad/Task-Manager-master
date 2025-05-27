@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/script.js' %}" async></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div class="header">
+            <img src="{% static 'images/task_master_logo.png' %}" alt="logo.jpg">
+            <ul style="display: inline-block">
+                <li><a href="/">Home</a></li>
+                <li><a href="teams">Teams</a></li>
+                <li><a href="tasks">Tasks</a></li>
+                {% if 'user_id' in request.session %}
+                    <li class="logout_link"><a>Logout</a></li>
+                    <li><a href="my_account">My Account</a></li>
+                {% else %}
+                    <li><a href="login">Login</a></li>
+                    <li><a href="signup">Sign-Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div id="body">
+            <img src="{% static 'images/checklist.png' %}" alt="checklist" class="tt-img">
+            <span class="tt-header">
+                <h1>My Tasks</h1>
+            </span>
+            <table class="tasks-table">
+                <thead>
+                    <tr>
+                        <th>Team1</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <th>Name</th>
+                    <th>Task</th>
+                    <th>Notes</th>
+                    <th>Deadline</th>
+                    <th>Upload File or Image</th>
+                    <th>Mark as Complete</th>
+                </tr>
+                    <tr>
+                        <td>Nolan Hill</td>
+                        <td>Send out statements</td>
+                        <td>For month of April</td>
+                        <td>3/31/22</td>
+                        <td><input type="file"></td> <!-- Use ajax store file with this task -->
+                        <td><input type="checkbox"></td> <!-- Use ajax to mark the task as complete and records time when complete -->
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>

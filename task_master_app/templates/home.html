@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="{% static 'js/script.js' %}" async></script>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <div id="container">
+        <div class="header">
+            <img src="{% static 'images/task_master_logo.png' %}" alt="logo.jpg">
+            <ul style="display: inline-block">
+                <li><a href="/">Home</a></li>
+                <li><a href="teams">Teams</a></li>
+                <li><a href="tasks">Tasks</a></li>
+                {% if 'user_id' in request.session %}
+                    <li class="logout_link"><a>Logout</a></li>
+                    <li><a href="my_account">My Account</a></li>
+                {% else %}
+                    <li><a href="login">Login</a></li>
+                    <li><a href="signup">Sign-Up</a></li>
+                {% endif %}
+            </ul>
+        </div>
+        <div id="body">
+            <h1><img src="{% static 'images/graph1.png' %}" alt="graph1" class="home_images">What makes an outstanding team?<img src="{% static 'images/graph2.png' %}" alt="graph2" class="home_images"></h1>
+            <img src="{% static 'images/underline.png' %}" alt="underline" id="underline-top">
+            <ul id="home-ul">
+                <li>Clear Understanding of Job Tasks</li>
+                <li>Communication</li>
+                <li>Goals</li>
+                <li>Organization</li>
+                <li>Schedules</li>
+                <li>Teamwork</li>
+            </ul>
+            <h1>Why use Task Master?</h1>
+            <img src="{% static 'images/underline.png' %}" alt="underline" id="underline-bottom">
+            <p id="home-p"> Task Master is a powerful tool to help connect owners, managers and
+                supervisors with their employees to effectively assign tasks to them
+                and include deadlines. In addition, employees can log into their portal
+                to check their tasks for the given day and even look at future tasks for
+                the week or further ahead, if applicable. Employees can mark the
+                task as complete and may also upload a picture of the completed task.
+            </p>
+            <a href="signup" class="button-link">I am ready to have a great team!</a>
+        </div>
+    </div>
+</body>
+</html>

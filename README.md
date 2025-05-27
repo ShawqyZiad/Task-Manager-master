@@ -1,9 +1,13 @@
-1. HTML: Structure
-Create a basic HTML structure with:
+🧱 1. HTML (Structure)
+HTML defines the layout and elements of your task manager, such as:
 
-An input box where users type their search query.
+A form to add new tasks
 
-A container to display movie results.
+A list to display tasks
+
+Buttons to delete or mark tasks as complete
+
+Example:
 
 html
 
@@ -11,133 +15,123 @@ html
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Movie Search</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Task Manager</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="search-container">
-    <input type="text" id="searchInput" placeholder="Search movies..." />
+  <div class="container">
+    <h1>Task Manager</h1>
+    <form id="task-form">
+      <input type="text" id="task-input" placeholder="Add a new task" required />
+      <button type="submit">Add Task</button>
+    </form>
+    <ul id="task-list"></ul>
   </div>
-
-  <div id="moviesList" class="movies-list"></div>
-
   <script src="script.js"></script>
 </body>
 </html>
-2. CSS: Styling
-Basic styling for the input box and movie results:
+🎨 2. CSS (Styling)
+CSS gives your task manager a clean and responsive look.
+
+Example:
 
 css
 
-/* styles.css */
-
+/* style.css */
 body {
   font-family: Arial, sans-serif;
-  margin: 20px;
-  background-color: #f2f2f2;
+  background-color: #f4f4f4;
 }
 
-.search-container {
-  margin-bottom: 20px;
+.container {
+  max-width: 500px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-#searchInput {
-  width: 100%;
-  padding: 10px;
-  font-size: 16px;
-}
-
-.movies-list {
+form {
   display: flex;
-  flex-wrap: wrap;
-  gap: 15px;
+  gap: 10px;
 }
 
-.movie-item {
-  background-color: white;
-  padding: 15px;
-  border-radius: 6px;
-  width: 200px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+input {
+  flex: 1;
+  padding: 10px;
 }
 
-.movie-title {
-  font-weight: bold;
-  margin-bottom: 5px;
+button {
+  padding: 10px;
 }
 
-.movie-year {
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  margin-top: 10px;
+  background: #eee;
+  border-radius: 5px;
+}
+
+li.completed {
+  text-decoration: line-through;
   color: gray;
 }
-3. JavaScript: Logic
-We will have a list of movies stored in a JavaScript array.
+⚙️ 3. JavaScript (Functionality)
+JavaScript handles the logic—adding, removing, and toggling tasks.
 
-When the user types in the input box, we filter the movies based on the input and display the results.
+Example:
 
-We add an event listener to the input box to trigger search on each key press.
-
-js
+javascript
 
 // script.js
+const taskForm = document.getElementById('task-form');
+const taskInput = document.getElementById('task-input');
+const taskList = document.getElementById('task-list');
 
-// Sample movie data
-const movies = [
-  { title: "The Shawshank Redemption", year: 1994 },
-  { title: "The Godfather", year: 1972 },
-  { title: "The Dark Knight", year: 2008 },
-  { title: "Pulp Fiction", year: 1994 },
-  { title: "The Lord of the Rings: The Return of the King", year: 2003 },
-  { title: "Forrest Gump", year: 1994 },
-  { title: "Inception", year: 2010 },
-  { title: "Fight Club", year: 1999 },
-];
+taskForm.addEventListener('submit', function (e) {
+  e.preventDefault();
 
-// Reference to DOM elements
-const searchInput = document.getElementById("searchInput");
-const moviesList = document.getElementById("moviesList");
+  const taskText = taskInput.value.trim();
+  if (taskText === '') return;
 
-// Function to display movies
-function displayMovies(filteredMovies) {
-  // Clear previous results
-  moviesList.innerHTML = "";
+  const li = document.createElement('li');
+  li.textContent = taskText;
 
-  if (filteredMovies.length === 0) {
-    moviesList.innerHTML = "<p>No movies found.</p>";
-    return;
-  }
+  const deleteBtn = document.createElement('button');
+  deleteBtn.textContent = 'Delete';
+  deleteBtn.onclick = () => li.remove();
 
-  // Add movie items to container
-  filteredMovies.forEach(movie => {
-    const movieDiv = document.createElement("div");
-    movieDiv.classList.add("movie-item");
+  li.onclick = () => li.classList.toggle('completed');
 
-    movieDiv.innerHTML = `
-      <div class="movie-title">${movie.title}</div>
-      <div class="movie-year">${movie.year}</div>
-    `;
+  li.appendChild(deleteBtn);
+  taskList.appendChild(li);
 
-    moviesList.appendChild(movieDiv);
-  });
-}
+  taskInput.value = '';
+});
+📁 Folder Structure
+arduino
 
-// Function to handle search input
-function handleSearch() {
-  const query = searchInput.value.toLowerCase();
+Task-Manager-master/
+│
+├── index.html
+├── style.css
+└── script.js
+✅ Optional Features You Can Add
+Save tasks to localStorage
 
-  const filteredMovies = movies.filter(movie =>
-    movie.title.toLowerCase().includes(query)
-  );
+Filter by completed/incomplete
 
-  displayMovies(filteredMovies);
-}
+Edit tasks
 
-// Initial display of all movies
-displayMovies(movies);
-
-// Listen for input event on search box
-searchInput.addEventListener("input", handleSearch);
-How it works:
+Set due dates or priorities
 When the page loads, it shows all the movies.
 
 When you start typing in the input box, the handleSearch function filters the movies array based on the search text.
